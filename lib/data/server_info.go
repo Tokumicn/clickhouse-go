@@ -2,6 +2,8 @@ package data
 
 import (
 	"fmt"
+	"runtime"
+
 	//"io"
 	"time"
 
@@ -35,11 +37,18 @@ func (srv *ServerInfo) Read(decoder *binary.Decoder) (err error) {
 		if err != nil {
 			return fmt.Errorf("could not read server timezone: %v", err)
 		}
-		if srv.Timezone, err = time.LoadLocation(timezone); err != nil {
+		if srv.Timezone, err = getTimezone(timezone); err != nil {
 			return fmt.Errorf("could not load time location: %v", err)
 		}
 	}
 	return nil
+}
+
+func getTimezone(timezone string) (*time.Location, error) {
+	if runtime.GOOS == "windows" && timezone == "posixrules" {
+		timezone = "Local"
+	}
+	return time.LoadLocation(timezone)
 }
 
 func (srv ServerInfo) String() string {
