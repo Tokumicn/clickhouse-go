@@ -70,7 +70,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/ClickHouse/clickhouse-go"
+	"github.com/Tokumicn/clickhouse-go"
 )
 
 func main() {
@@ -163,7 +163,7 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
-	_ "github.com/ClickHouse/clickhouse-go"
+	_ "github.com/Tokumicn/clickhouse-go"
 )
 
 func main() {
